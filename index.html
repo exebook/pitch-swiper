@@ -1,0 +1,227 @@
+<html>
+
+<head>
+	<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no,  user-scalable=no">
+	<meta charset="utf8">
+	<meta name="mobile-web-app-capable" content="yes">
+	<script src="https://unpkg.com/preact/dist/preact.min.js" _src="/preact.min.js"></script>
+</head>
+
+<style>
+//	div { border: 1px solid red; }
+</style>
+
+<body>
+	<div id=root></div>
+</body>
+
+</html>
+<script type=module>
+var { render, h, Component } = window.preact
+
+import { SwiperConfig, AmberSwiper, DrawStacks } from '/amber-swiper.js'
+
+//SwiperConfig.cardBackground = '#f8fcfe' // you can modify the global config variable
+//SwiperConfig.stackBorder = '1px dotted blue' // you can modify the global config variable
+
+var DeskStyle = {
+	zIndex: 1001,
+	position: 'fixed',
+	textAlign: 'center',
+	top: 0,
+	left: 0,
+	width: SwiperConfig.width * 2,
+	height: SwiperConfig.height * 1.5,
+	'background-image': 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2r9//38gYGAEESAAEGAAasgJOgzOKCoAAAAASUVORK5CYII=)',
+}
+
+function LargeNumber(props) {
+	return h('span', {
+		style: {
+			fontSize: '1cm', color: 'blue'
+		}
+	},
+	props.number)
+}
+
+function SmallNumber(props) {
+	return h('span', {
+		style: {
+			fontSize: '0.5cm', color: 'brown'
+		}
+	},
+	props.number)
+}
+
+function SomeText(props) {
+	return h('span', {
+		style: {
+			fontSize: '0.7cm', color: 'green'
+		}
+	},
+	props.text)
+}
+
+function bitmask_as_text(x) {
+	if (x == 0) return 'keep dragging'
+	var s = ''
+	if (x & 1) s += 'left '
+	if (x & 2) s += 'right '
+	if (x & 4) s += 'up '
+	if (x & 8) s += 'down '
+	return s
+}
+
+class SampleCardNumber extends Component {
+	constructor(props) {
+		super(props)
+		this.on_dragstate = this.on_dragstate.bind(this)
+		this.callApi = this.callApi.bind(this)
+	}
+
+	callApi() {
+		this.setState({
+			number: '?',
+			label: 'loading',
+		})
+		setTimeout(x =>{
+			this.setState({
+				number: '<'+this.props.number+'>',
+				label: 'still',
+			})
+		}, 500)
+	}
+
+	componentDidMount() {
+		this.callApi()
+	}
+
+	on_dragstate(new_dragout) {
+		this.setState({
+			label: bitmask_as_text(new_dragout)
+		})
+	}
+
+	on_dragbegin() {
+	}
+
+	on_dragend(dragout) {
+	}
+
+	render() {
+		return h('div', { style: { textAlign: 'center' }},
+			h('br'),h('br'),h('br'),h('br'),
+			h(LargeNumber, { number: this.state.number }),
+			h('br'),
+			h(SomeText, { text: this.props.itemData.text }),
+			h('br'),
+			h(SmallNumber, { number: this.state.label }),
+		)
+	}
+}
+
+class SampleBackground extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			top_label: '??',
+			log: [],
+		}
+		this.on_card = this.on_card.bind(this)
+		this.on_dragstate = this.on_dragstate.bind(this)
+	}
+
+	on_card(bitmask, number, item, all) {
+		var msg = `card ${number} complete ${item.text} remaining: ${all.length-number-1}`
+		this.setState({
+			log: [].concat(msg, this.state.log).slice(0, 4)
+		})
+	}
+
+	on_dragstate(bitmask) {
+		this.setState({ top_label: bitmask_as_text(bitmask) })
+	}
+
+	render() {
+		var self = this
+
+		function Button(N) {
+			return h('button', {
+				onclick: x =>{
+					self.setState({ log: [] })
+					self.props.userData.reset(N)
+				}
+			}, N)
+		}
+
+		function NoMore() {
+			return h('div', {
+				style: {
+					position: 'absolute',
+					color: 'red',
+					fontSize: '7mm',
+					textShadow: '0px 0px 2px white',
+					left: SwiperConfig.left,
+					top: SwiperConfig.top + 100,
+					width: SwiperConfig.width,
+					height: SwiperConfig.height,
+				}
+			},
+			h('div', {  }, 'Stack is empty'),
+			h('div', { style: { fontSize: '11pt' }}, 'click to fill it with'),
+			h('br'),
+			Button(1), Button(2), Button(3), Button(5), Button(10), Button(20)
+			)
+
+		}
+		return h('div', { style: DeskStyle, onclick:()=>{console.log(111)} },
+			h(NoMore),
+			h('pre', {
+					style: {
+						color: 'purple',
+						left: SwiperConfig.left,
+						top: SwiperConfig.height + SwiperConfig.top + SwiperConfig.stackMax * 2,
+						position: 'absolute',
+					}
+				},
+				this.state.log.join('\n')
+			),
+		)
+	}
+}
+
+class App extends Component {
+	constructor (props) {
+		super(props)
+		this.state = {
+			source: []
+		}
+		this.reset = this.reset.bind(this)
+		this.reset(4)
+	}
+
+	reset(size) {
+		var data = 'one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nighteen twenty'
+		.split(' ').map(x =>{ return { text: x }})
+		this.setState({ source: data.slice(0, size) })
+		if (this.swiper) {
+			this.swiper.setState({ current: 0 })
+		}
+	}
+
+	render() {
+		return h('div', {},
+			h(AmberSwiper, {
+				Card: SampleCardNumber,
+				Background: SampleBackground,
+				data: this.state.source,
+				userData: { reset: this.reset },
+				ref: x =>{ this.swiper = x },
+			})
+		)
+	}
+}
+
+render(h(App), root)
+
+</script>
