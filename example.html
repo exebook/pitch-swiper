@@ -15,7 +15,7 @@
 <script type=module>
 var { render, h, Component } = window.preact
 
-import { SwiperConfig, AmberSwiper, DrawStacks } from '/pitch-swiper/pitch-swiper.js'
+import { SwiperConfig, PitchSwiper, DrawStacks } from '/pitch-swiper/pitch-swiper.js'
 
 var DeskStyle = {
 	zIndex: 1001,
@@ -204,7 +204,7 @@ class App extends Component {
 
 	render() {
 		return h('div', {},
-			h(AmberSwiper, {
+			h(PitchSwiper, {
 				Card: SampleCardNumber,
 				Background: SampleBackground,
 				data: this.state.source,

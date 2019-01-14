@@ -15,7 +15,7 @@
 <script type=module>
 var { render, h, Component } = window.preact
 
-import { SwiperConfig, AmberSwiper, DrawStacks } from '/pitch-swiper/pitch-swiper.js'
+import { SwiperConfig, PitchSwiper, DrawStacks } from '/pitch-swiper/pitch-swiper.js'
 
 // you can modify the global config variable
 SwiperConfig.cardBackground = '#f8fcfe'
@@ -114,7 +114,7 @@ class SampleBackground extends Component {
 
 class App extends Component {
 	render() {
-		return h(AmberSwiper, {
+		return h(PitchSwiper, {
 				Card: SampleCardNumber,
 				Background: SampleBackground,
 				data: [1,2,3],
