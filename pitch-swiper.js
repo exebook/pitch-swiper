@@ -251,7 +251,7 @@ class TopCard extends Component {
 	}
 }
 
-export class AmberSwiper extends Component {
+export class PitchSwiper extends Component {
 	constructor(props) {
 		super(props)
 		this.nextcard = this.nextcard.bind(this)
