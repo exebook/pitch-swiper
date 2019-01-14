@@ -1,5 +1,7 @@
 # PITCH Swiper
 
+![Teaser animation](https://exebook.github.io/pitch-swiper/swiper.gif)
+
 PITCH-swiper is a lightweight swiper component for Preact. Hopefully it should work with React out of the box. Tested on iPhone 8, Android HTC U11, Safari for Mac, Firefox and Chrome for Windows 7/10, Mac and Linux. The component is only 300 lines of code, no external dependencies, except for (p)react itself. This component was originally created for [Pitch app](http://www.pitchinvestorslive.com/) hence the name. We have tried multiple other components, but neither was fast, reliable, cool looking and configurable enough, so I have created this one.
 
 It requires some work to set up, please see examples and read this README carefully.
