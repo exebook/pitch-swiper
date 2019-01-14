@@ -4,9 +4,7 @@ PITCH-swiper is a lightweight swiper component for Preact. Hopefully it shoudl w
 
 It requires some work to set up, please see examples and read this readme carefully.
 
-Simplest possible "hello world" demo:
-
-https://exebook.github.io/pitch-swiper/hello.html
+(Simplest possible "hello world" demo)[https://exebook.github.io/pitch-swiper/hello.html]
 
 Source code for that demo: [hello.html][https://github.com/exebook/pitch-swiper/blob/master/hello.html]
 
