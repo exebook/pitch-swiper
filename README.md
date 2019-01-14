@@ -1,14 +1,15 @@
-#PITCH Swiper
+# PITCH Swiper
 
 PITCH-swiper is a lightweight swiper component for Preact. Hopefully it shoudl work with React out of the box. The component is only 300 lines of code, no external dependencies, except for (p)react itself.
 
 It requires some work to set up, please see examples and read this readme carefully.
 
-(Simplest possible "hello world" demo)[https://exebook.github.io/pitch-swiper/hello.html]
+[Simplest possible "hello world" demo](https://exebook.github.io/pitch-swiper/hello.html) [source](https://github.com/exebook/pitch-swiper/blob/master/hello.html)
 
-Source code for that demo: [hello.html][https://github.com/exebook/pitch-swiper/blob/master/hello.html]
+[More advanced demo](https://exebook.github.io/pitch-swiper/example.html) [source](https://github.com/exebook/pitch-swiper/blob/master/example.html)
 
-#Terminology
+
+# Terminology
 
 Swiper - The whole component
 TopCard - The component that represends the top card, controls the animation and events
@@ -19,7 +20,7 @@ userData - Some arbitrary variable that will be passed to back you as props
 itemData - The element from data
 number - Current card index in the data array
 
-#Usage
+# Usage
 
 ### Usage
 ```js
@@ -34,17 +35,17 @@ h(AmberSwiper, {
 })
 ```
 
-###Note
+### Note
 This component uses absolute positioning, better used in full screen or carefully laid out DOM.
 When you create AmberSwiper you need to provide the `data` property.
 
 
-###Background
+### Background
 
 Render it using config.top config.width etc
 Receives props: data, number, userData, itemData
 
-###Card
+### Card
 
 Use dimensions from config to render it properly.
 Card can define these methods as callbacks:
