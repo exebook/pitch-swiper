@@ -1,6 +1,14 @@
 #PITCH Swiper
 
+PITCH-swiper is a lightweight swiper component for Preact. Hopefully it shoudl work with React out of the box. The component is only 300 lines of code, no external dependencies, except for (p)react itself.
 
+It requires some work to set up, please see examples and read this readme carefully.
+
+Simplest possible "hello world" demo:
+
+https://exebook.github.io/pitch-swiper/hello.html
+
+Source code for that demo: [hello.html][https://github.com/exebook/pitch-swiper/blob/master/hello.html]
 
 #Terminology
 
